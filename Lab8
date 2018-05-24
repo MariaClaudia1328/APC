@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	int **matrizA,**matrizB,**matrizC;
+	int M,Ncol,Nlin,P;
+	int i,j,cont=0;
+
+	do{
+		if(cont >= 1){
+			printf("\nLembre-se que o valor de N é o mesmo para as matrizes.\n");
+			printf("Digite novamente os valores.\n\n");
+			cont = 0;
+		}
+		printf("Digite o tamanho MxN da matriz A:\n");
+		scanf("%d %d",&M,&Ncol);
+		printf("Digite o tamanho NxP da matriz B:\n");
+		scanf("%d %d",&Nlin,&P);
+		cont++;
+	}while(Ncol != Nlin);
+
+	/*para matrizA: Mlinha Ncoluna*/
+	matrizA = (int**) malloc(M*sizeof(int*));
+	for(i=0;i<M;i++){
+		*(matrizA +i) = (int *) malloc(Ncol*sizeof(int));
+	}
+
+	/*para matrizB: Nlinha Pcoluna*/
+	matrizB = (int**) malloc(Nlin*sizeof(int*));
+	for(i=0;i<Nlin;i++){
+		*(matrizB + i) = (int*) malloc(P*sizeof(int));
+	}
+
+	/*para matrizC: Mlinha Pcoluna*/
+	matrizC = (int**) malloc(M*sizeof(int*));
+	for(i=0;i<P;i++){
+		*(matrizC + i) = (int *) malloc(P*sizeof(int)); 
+	}
+
+	printf("Digite o valor de: \n");
+	for(i=0;i<M;i++){
+		for(j=0;j<Ncol;j++){
+			printf("A[%d][%d]:",i,j );
+			scanf("%d", *(matrizA + i)+j); 
+		}
+	}
+
+	printf("Digite o valor de: \n");
+	for(i=0;i<Nlin;i++){
+		for(j=0;j<P;j++){
+			printf("B[%d][%d]:",i,j );
+			scanf("%d", *(matrizB + i)+j);
+		}
+	}
+
+	/*mutiplicação de matrizes: linha de A * coluna de B */
+
+
+
+	/*liberar a memória*/
+	for(i=0;i<M;i++){
+		free(*(matrizA+i));
+	}
+	for(i=0;i<Nlin;i++){
+		free(*(matrizB + i));
+	}
+	for(i=0;i<P;i++){
+		free(*(matrizC+i));
+	}
+
+	free(matrizA);
+	free(matrizB);
+	free(matrizC);
+
+	return 0;
+}
